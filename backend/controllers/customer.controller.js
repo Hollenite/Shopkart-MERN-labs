@@ -1,5 +1,6 @@
 import Customer from "../models/customer.model.js";
 import bcrypt from "bcrypt";
+import { generateToken } from "../utils/generateToken.js";
 
 const toPublicCustomer = (customer) => ({
   _id: customer._id,
@@ -69,9 +70,69 @@ export const loginCustomer = async (req, res) => {
     });
   }
 
+  generateToken(res, customer._id);
+
   return res.status(200).json({
     success: true,
     message: "Login successful",
     customer: toPublicCustomer(customer),
+  });
+};
+
+export const getMe = async (req, res) => {
+  const { id } = req.user;
+  const customer = await Customer.findById(id).select("-password");
+
+  if (!customer) {
+    return res.status(404).json({ message: "User Not Found" });
+  }
+
+  const publicCustomer = toPublicCustomer(customer);
+
+  return res.status(200).json({
+    ...publicCustomer,
+    success: true,
+    customer: publicCustomer,
+  });
+};
+
+export const logoutCustomer = async (req, res) => {
+  res.clearCookie("token");
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
+};
+
+export const changePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  if (!oldPassword || !newPassword) {
+    return res.status(400).json({ message: "Old password and new password are required" });
+  }
+
+  if (newPassword.length < 6) {
+    return res.status(400).json({
+      message: "Password length must be atleast 6",
+    });
+  }
+
+  const customer = await Customer.findById(req.user.id);
+
+  if (!customer) {
+    return res.status(404).json({ message: "User Not Found" });
+  }
+
+  const matches = await bcrypt.compare(oldPassword, customer.password);
+  if (!matches) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  customer.password = await bcrypt.hash(newPassword, 10);
+  await customer.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Password changed successfully",
   });
 };
