@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./utils/connectDB.js";
 import customerRoutes from "./routes/customer.routes.js";
+import productRoutes from "./routes/product.routes.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -21,6 +22,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use("/customers", customerRoutes);
+app.use("/products", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
