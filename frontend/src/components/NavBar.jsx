@@ -28,6 +28,9 @@ function NavBar() {
         <Link to="/home" className={isActive("/home") || location.pathname === "/" ? "active" : ""}>
           Home
         </Link>
+        <Link to="/products" className={isActive("/products") ? "active" : ""}>
+          Products
+        </Link>
       </div>
       <button type="button" onClick={handleLogout} className="nav-logout">
         Logout

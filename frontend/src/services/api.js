@@ -20,3 +20,15 @@ export const getMe = () => {
 export const logoutCustomer = () => {
   return api.post("/logout");
 };
+
+const productApi = axios.create({
+  baseURL: "http://localhost:4567/products",
+});
+
+export const getProducts = (params) => {
+  return productApi.get("/", { params });
+};
+
+export const getProduct = (id) => {
+  return productApi.get(`/${id}`);
+};

@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NavBar from "./components/NavBar";
+import Products from "./pages/Products";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
       </Routes>
     </BrowserRouter>
   );
