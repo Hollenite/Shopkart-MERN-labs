@@ -120,12 +120,27 @@ button {
   margin-top: 1rem;
 }
 
-.button-secondary {
+.button-secondary,
+.button-danger,
+.button-primary {
   display: inline-flex;
   justify-content: center;
   padding: 0.7rem 1rem;
   border-radius: 8px;
+  text-decoration: none;
+}
+
+.button-secondary {
   color: inherit;
   background: #eee;
-  text-decoration: none;
+}
+
+.button-danger {
+  color: #b00020;
+  background: #fdecee;
+}
+
+.button-primary {
+  color: #fff;
+  background: #333;
 }

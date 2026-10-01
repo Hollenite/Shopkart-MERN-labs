@@ -32,3 +32,20 @@ export const getProducts = (params) => {
 export const getProduct = (id) => {
   return productApi.get(`/${id}`);
 };
+
+const wishlistApi = axios.create({
+  baseURL: "http://localhost:4567/wishlist",
+  withCredentials: true,
+});
+
+export const addToWishlist = (id) => {
+  return wishlistApi.post(`/${id}`);
+};
+
+export const getWishlist = () => {
+  return wishlistApi.get("/");
+};
+
+export const removeFromWishlist = (id) => {
+  return wishlistApi.delete(`/${id}`);
+};

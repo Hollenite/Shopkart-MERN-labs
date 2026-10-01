@@ -1,6 +1,29 @@
 import { Link } from "react-router-dom";
+import { addToWishlist } from "../services/api";
+import { useState } from "react";
 
-function ProductCard({ product }) {
+function ProductCard({ product, onRemove }) {
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleWishlist = async () => {
+    setSaving(true);
+    setError("");
+
+    try {
+      await addToWishlist(product._id);
+      setSaved(true);
+    } catch (requestError) {
+      setError(
+        requestError.response?.data?.message ||
+          "Unable to save product. Please try again.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <article className="product-card">
       <img src={product.image} alt={product.name} className="product-photo" />
@@ -15,7 +38,22 @@ function ProductCard({ product }) {
           <Link to={`/products/${product._id}`} className="button-secondary">
             View Details
           </Link>
+          {onRemove ? (
+            <button type="button" onClick={() => onRemove(product._id)} className="button-danger">
+              Remove from Wishlist
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleWishlist}
+              disabled={saving || saved}
+              className="button-secondary"
+            >
+              {saving ? "Saving..." : saved ? "Added to Wishlist" : "Add to Wishlist"}
+            </button>
+          )}
         </div>
+        {error && <p className="error">{error}</p>}
       </div>
     </article>
   );

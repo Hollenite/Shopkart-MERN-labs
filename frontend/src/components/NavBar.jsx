@@ -31,6 +31,9 @@ function NavBar() {
         <Link to="/products" className={isActive("/products") ? "active" : ""}>
           Products
         </Link>
+        <Link to="/wishlist" className={isActive("/wishlist") ? "active" : ""}>
+          Wishlist
+        </Link>
       </div>
       <button type="button" onClick={handleLogout} className="nav-logout">
         Logout
