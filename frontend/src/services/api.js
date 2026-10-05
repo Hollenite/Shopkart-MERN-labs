@@ -49,3 +49,24 @@ export const getWishlist = () => {
 export const removeFromWishlist = (id) => {
   return wishlistApi.delete(`/${id}`);
 };
+
+const cartApi = axios.create({
+  baseURL: "http://localhost:4567/cart",
+  withCredentials: true,
+});
+
+export const getCart = () => {
+  return cartApi.get("/");
+};
+
+export const addToCart = (id) => {
+  return cartApi.post(`/${id}`);
+};
+
+export const updateCartQuantity = (id, quantity) => {
+  return cartApi.patch(`/${id}`, { quantity });
+};
+
+export const removeFromCart = (id) => {
+  return cartApi.delete(`/${id}`);
+};

@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import { addToWishlist } from "../services/api";
 import { useState } from "react";
+import { useCart } from "../context/useCart";
 
 function ProductCard({ product, onRemove }) {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
+  const { addToCart, actionLoading } = useCart();
+  const addingToCart = actionLoading === product._id;
 
   const handleWishlist = async () => {
     setSaving(true);
@@ -21,6 +24,19 @@ function ProductCard({ product, onRemove }) {
       );
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleAddToCart = async () => {
+    setError("");
+
+    try {
+      await addToCart(product._id);
+    } catch (requestError) {
+      setError(
+        requestError.response?.data?.message ||
+          "Unable to add product to cart. Please try again.",
+      );
     }
   };
 
@@ -52,6 +68,14 @@ function ProductCard({ product, onRemove }) {
               {saving ? "Saving..." : saved ? "Added to Wishlist" : "Add to Wishlist"}
             </button>
           )}
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            disabled={addingToCart || product.stock === 0}
+            className="button-primary"
+          >
+            {addingToCart ? "Adding..." : product.stock === 0 ? "Out of Stock" : "Add to Cart"}
+          </button>
         </div>
         {error && <p className="error">{error}</p>}
       </div>

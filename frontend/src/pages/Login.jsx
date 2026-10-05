@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginCustomer } from "../services/api";
+import { useCart } from "../context/useCart";
 
 function Login() {
   const navigate = useNavigate();
+  const { refreshCart } = useCart();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -31,6 +33,7 @@ function Login() {
     setSubmitting(true);
     try {
       await loginCustomer(form);
+      await refreshCart();
       navigate("/home");
     } catch {
       setErrors({ form: "Invalid Credentials" });

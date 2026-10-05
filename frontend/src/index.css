@@ -144,3 +144,38 @@ button {
   color: #fff;
   background: #333;
 }
+
+.cart-badge {
+  margin-left: 0.3rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: #eee;
+  font-size: 0.72rem;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 1.25rem;
+}
+
+.summary-card,
+.content-card {
+  padding: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.cart-item-image {
+  width: 7rem;
+  height: 7rem;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}

@@ -1,9 +1,11 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutCustomer } from "../services/api";
+import { useCart } from "../context/useCart";
 
 function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { cartCount, clearCart } = useCart();
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(`${path}/`);
 
@@ -15,6 +17,7 @@ function NavBar() {
     try {
       await logoutCustomer();
     } finally {
+      clearCart();
       navigate("/login");
     }
   };
@@ -33,6 +36,9 @@ function NavBar() {
         </Link>
         <Link to="/wishlist" className={isActive("/wishlist") ? "active" : ""}>
           Wishlist
+        </Link>
+        <Link to="/cart" className={isActive("/cart") ? "active" : ""}>
+          Cart <span className="cart-badge">{cartCount}</span>
         </Link>
       </div>
       <button type="button" onClick={handleLogout} className="nav-logout">
