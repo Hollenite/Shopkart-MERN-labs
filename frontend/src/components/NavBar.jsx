@@ -40,6 +40,9 @@ function NavBar() {
         <Link to="/cart" className={isActive("/cart") ? "active" : ""}>
           Cart <span className="cart-badge">{cartCount}</span>
         </Link>
+        <Link to="/orders" className={isActive("/orders") ? "active" : ""}>
+          Orders
+        </Link>
       </div>
       <button type="button" onClick={handleLogout} className="nav-logout">
         Logout

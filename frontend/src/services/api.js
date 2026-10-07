@@ -70,3 +70,24 @@ export const updateCartQuantity = (id, quantity) => {
 export const removeFromCart = (id) => {
   return cartApi.delete(`/${id}`);
 };
+
+const orderApi = axios.create({
+  baseURL: "http://localhost:4567/orders",
+  withCredentials: true,
+});
+
+export const createPaymentOrder = (shippingAddress) => {
+  return orderApi.post("/create-payment-order", { shippingAddress });
+};
+
+export const verifyPayment = (paymentData) => {
+  return orderApi.post("/verify-payment", paymentData);
+};
+
+export const getOrders = () => {
+  return orderApi.get("/");
+};
+
+export const getOrder = (id) => {
+  return orderApi.get(`/${id}`);
+};
