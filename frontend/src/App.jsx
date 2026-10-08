@@ -2,19 +2,21 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import NavBar from "./components/NavBar";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
+import NavBar from "./components/NavBar";
 import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
+import { CartProvider } from "./context/CartContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import OrderDetails from "./pages/OrderDetails";
-import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
     <BrowserRouter>
+      <ThemeProvider>
       <CartProvider>
         <NavBar />
         <Routes>
@@ -31,6 +33,7 @@ function App() {
           <Route path="/orders/:id" element={<OrderDetails />} />
         </Routes>
       </CartProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

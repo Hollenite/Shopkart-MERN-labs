@@ -1,4 +1,4 @@
-function SearchBar({ search, category, onSearchChange, onCategoryChange }) {
+function SearchBar({ search, category, sort, onSearchChange, onCategoryChange, onSortChange }) {
   return (
     <div className="filter-bar">
       <input
@@ -12,6 +12,11 @@ function SearchBar({ search, category, onSearchChange, onCategoryChange }) {
         <option value="Fashion">Fashion</option>
         <option value="Books">Books</option>
         <option value="Home">Home</option>
+      </select>
+      <select value={sort} onChange={(event) => onSortChange(event.target.value)}>
+        <option value="">Default</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
       </select>
     </div>
   );

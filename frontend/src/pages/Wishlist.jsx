@@ -46,16 +46,27 @@ function Wishlist() {
   };
 
   if (wishlist === null && !error) {
-    return <p className="p-6">Loading your wishlist...</p>;
+    return (
+      <main className="shop-main">
+        <div className="page-status">
+          <div className="status-icon">⏳</div>
+          <h1>Loading your wishlist...</h1>
+        </div>
+      </main>
+    );
   }
 
   if (error && wishlist === null) {
     return (
       <main className="shop-main">
-        <p>Unable to load wishlist.</p>
-        <button type="button" onClick={loadWishlist}>
-          Try Again
-        </button>
+        <div className="page-status">
+          <div className="status-icon">!</div>
+          <h1>Something went wrong.</h1>
+          <p>We couldn&apos;t load your wishlist.</p>
+          <button type="button" onClick={loadWishlist} className="button-primary">
+            Try Again
+          </button>
+        </div>
       </main>
     );
   }
@@ -63,20 +74,34 @@ function Wishlist() {
   if (wishlist.length === 0) {
     return (
       <main className="shop-main">
-        <h1>Your wishlist is empty</h1>
-        <Link to="/products">Browse Products</Link>
+        <div className="empty-state">
+          <div className="empty-state-icon">♥</div>
+          <h1>Your wishlist is empty</h1>
+          <p>Save products you love and find them here later.</p>
+          <Link to="/products" className="button-primary">
+            Browse Products
+          </Link>
+        </div>
       </main>
     );
   }
 
   return (
     <main className="shop-main">
-      <h1>My Wishlist</h1>
-      <p>{wishlist.length} products saved</p>
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Your little corner</p>
+          <h1>My Wishlist</h1>
+          <p>{wishlist.length} products saved</p>
+        </div>
+      </div>
       {error && <p className="error">{error}</p>}
       <div className="product-grid">
         {wishlist.map((product) => (
-          <div key={product._id} className={removingId === product._id ? "opacity-60" : ""}>
+          <div
+            key={product._id}
+            className={removingId === product._id ? "opacity-60" : ""}
+          >
             <ProductCard product={product} onRemove={handleRemove} />
           </div>
         ))}

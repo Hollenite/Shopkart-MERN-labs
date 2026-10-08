@@ -49,46 +49,50 @@ function Register() {
 
   return (
     <div className="page">
-      <form className="card" onSubmit={handleSubmit}>
-        <h1>Create account</h1>
-        {errors.form && <p className="error">{errors.form}</p>}
-        <label>
-          Full Name
-          <input name="fullName" value={form.fullName} onChange={handleChange} />
-          {errors.fullName && <span className="error">{errors.fullName}</span>}
-        </label>
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          {errors.password && <span className="error">{errors.password}</span>}
-        </label>
-        <label>
-          Phone Number
-          <input name="phone" value={form.phone} onChange={handleChange} />
-          {errors.phone && <span className="error">{errors.phone}</span>}
-        </label>
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Creating account..." : "Create Account"}
-        </button>
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
-      </form>
+      <div className="auth-stack">
+        <h1 className="auth-brand">ShopKart</h1>
+        <p className="auth-tagline">Create an account to start shopping.</p>
+        <form className="card" onSubmit={handleSubmit}>
+          <h1>Create account</h1>
+          {errors.form && <p className="error">{errors.form}</p>}
+          <label>
+            Full Name
+            <input name="fullName" value={form.fullName} onChange={handleChange} />
+            {errors.fullName && <span className="error">{errors.fullName}</span>}
+          </label>
+          <label>
+            Email
+            <input
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </label>
+          <label>
+            Password
+            <input
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+            />
+            {errors.password && <span className="error">{errors.password}</span>}
+          </label>
+          <label>
+            Phone Number
+            <input name="phone" value={form.phone} onChange={handleChange} />
+            {errors.phone && <span className="error">{errors.phone}</span>}
+          </label>
+          <button type="submit" disabled={submitting}>
+            {submitting ? "Creating account..." : "Create Account"}
+          </button>
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

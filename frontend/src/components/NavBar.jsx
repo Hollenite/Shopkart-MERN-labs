@@ -1,15 +1,17 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutCustomer } from "../services/api";
 import { useCart } from "../context/useCart";
+import { useTheme } from "../context/useTheme";
 
 function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { cartCount, clearCart } = useCart();
+  const { theme, toggleTheme } = useTheme();
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(`${path}/`);
 
-  if (["/login", "/register"].includes(location.pathname)) {
+  if (["/login", "/register", "/signup"].includes(location.pathname)) {
     return null;
   }
 
@@ -44,9 +46,19 @@ function NavBar() {
           Orders
         </Link>
       </div>
-      <button type="button" onClick={handleLogout} className="nav-logout">
-        Logout
-      </button>
+      <div className="nav-actions">
+        <button
+          type="button"
+          className="icon-button"
+          onClick={toggleTheme}
+          aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+        >
+          {theme === "dark" ? "☀" : "☾"}
+        </button>
+        <button type="button" onClick={handleLogout} className="nav-logout">
+          Logout
+        </button>
+      </div>
     </nav>
   );
 }

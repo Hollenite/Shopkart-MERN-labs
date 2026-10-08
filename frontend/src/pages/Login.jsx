@@ -44,36 +44,40 @@ function Login() {
 
   return (
     <div className="page">
-      <form className="card" onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        {errors.form && <p className="error">{errors.form}</p>}
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          {errors.password && <span className="error">{errors.password}</span>}
-        </label>
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Signing in..." : "Login"}
-        </button>
-        <p>
-          Don&apos;t have an account? <Link to="/register">Create one</Link>
-        </p>
-      </form>
+      <div className="auth-stack">
+        <h1 className="auth-brand">ShopKart</h1>
+        <p className="auth-tagline">Sign in to pick up where you left off.</p>
+        <form className="card" onSubmit={handleSubmit}>
+          <h1>Login</h1>
+          {errors.form && <p className="error">{errors.form}</p>}
+          <label>
+            Email
+            <input
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </label>
+          <label>
+            Password
+            <input
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+            />
+            {errors.password && <span className="error">{errors.password}</span>}
+          </label>
+          <button type="submit" disabled={submitting}>
+            {submitting ? "Signing in..." : "Login"}
+          </button>
+          <p>
+            Don&apos;t have an account? <Link to="/register">Create one</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

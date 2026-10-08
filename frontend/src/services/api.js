@@ -5,8 +5,26 @@ const api = axios.create({
   withCredentials: true,
 });
 
+const productApi = axios.create({
+  baseURL: "http://localhost:4567/products",
+});
+
+const wishlistApi = axios.create({
+  baseURL: "http://localhost:4567/wishlist",
+  withCredentials: true,
+});
+
+const cartApi = axios.create({
+  baseURL: "http://localhost:4567/cart",
+  withCredentials: true,
+});
+
 export const registerCustomer = (customerData) => {
   return api.post("/register", customerData);
+};
+
+export const changePassword = (passwordData) => {
+  return api.patch("/change-password", passwordData);
 };
 
 export const loginCustomer = (customerData) => {
@@ -21,10 +39,6 @@ export const logoutCustomer = () => {
   return api.post("/logout");
 };
 
-const productApi = axios.create({
-  baseURL: "http://localhost:4567/products",
-});
-
 export const getProducts = (params) => {
   return productApi.get("/", { params });
 };
@@ -32,11 +46,6 @@ export const getProducts = (params) => {
 export const getProduct = (id) => {
   return productApi.get(`/${id}`);
 };
-
-const wishlistApi = axios.create({
-  baseURL: "http://localhost:4567/wishlist",
-  withCredentials: true,
-});
 
 export const addToWishlist = (id) => {
   return wishlistApi.post(`/${id}`);
@@ -49,11 +58,6 @@ export const getWishlist = () => {
 export const removeFromWishlist = (id) => {
   return wishlistApi.delete(`/${id}`);
 };
-
-const cartApi = axios.create({
-  baseURL: "http://localhost:4567/cart",
-  withCredentials: true,
-});
 
 export const getCart = () => {
   return cartApi.get("/");

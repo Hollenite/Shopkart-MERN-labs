@@ -18,7 +18,7 @@ export const createProduct = async (req, res) => {
 
 export const getAllProducts = async (req, res) => {
   try {
-    const { search, category } = req.query;
+    const { search, category, sort } = req.query;
     const filter = {};
 
     if (search) {
@@ -29,7 +29,15 @@ export const getAllProducts = async (req, res) => {
       filter.category = category;
     }
 
-    const products = await Product.find(filter);
+    const query = Product.find(filter);
+
+    if (sort === "price_asc") {
+      query.sort({ price: 1 });
+    } else if (sort === "price_desc") {
+      query.sort({ price: -1 });
+    }
+
+    const products = await query;
 
     return res
       .status(200)
