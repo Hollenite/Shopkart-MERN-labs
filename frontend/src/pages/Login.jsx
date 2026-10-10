@@ -35,8 +35,12 @@ function Login() {
       await loginCustomer(form);
       await refreshCart();
       navigate("/home");
-    } catch {
-      setErrors({ form: "Invalid Credentials" });
+    } catch (error) {
+      setErrors({
+        form:
+          error.response?.data?.message ||
+          "Cannot reach the server. Check VITE_API_URL and Render CLIENT_URL.",
+      });
     } finally {
       setSubmitting(false);
     }
