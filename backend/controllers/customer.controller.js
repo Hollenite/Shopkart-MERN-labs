@@ -1,6 +1,6 @@
 import Customer from "../models/customer.model.js";
 import bcrypt from "bcrypt";
-import { generateToken } from "../utils/generateToken.js";
+import { cookieOptions, generateToken } from "../utils/generateToken.js";
 
 const toPublicCustomer = (customer) => ({
   _id: customer._id,
@@ -97,7 +97,7 @@ export const getMe = async (req, res) => {
 };
 
 export const logoutCustomer = async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", cookieOptions);
   return res.status(200).json({
     success: true,
     message: "Logged out successfully",

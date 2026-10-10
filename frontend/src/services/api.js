@@ -1,22 +1,33 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "http://localhost:4567/customers",
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4567";
+
+const withCredentials = {
   withCredentials: true,
+};
+
+const api = axios.create({
+  baseURL: `${API_URL}/customers`,
+  ...withCredentials,
 });
 
 const productApi = axios.create({
-  baseURL: "http://localhost:4567/products",
+  baseURL: `${API_URL}/products`,
 });
 
 const wishlistApi = axios.create({
-  baseURL: "http://localhost:4567/wishlist",
-  withCredentials: true,
+  baseURL: `${API_URL}/wishlist`,
+  ...withCredentials,
 });
 
 const cartApi = axios.create({
-  baseURL: "http://localhost:4567/cart",
-  withCredentials: true,
+  baseURL: `${API_URL}/cart`,
+  ...withCredentials,
+});
+
+const orderApi = axios.create({
+  baseURL: `${API_URL}/orders`,
+  ...withCredentials,
 });
 
 export const registerCustomer = (customerData) => {
@@ -74,11 +85,6 @@ export const updateCartQuantity = (id, quantity) => {
 export const removeFromCart = (id) => {
   return cartApi.delete(`/${id}`);
 };
-
-const orderApi = axios.create({
-  baseURL: "http://localhost:4567/orders",
-  withCredentials: true,
-});
 
 export const createPaymentOrder = (shippingAddress) => {
   return orderApi.post("/create-payment-order", { shippingAddress });
